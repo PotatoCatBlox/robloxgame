@@ -1,0 +1,30 @@
+local tool = script.Parent
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local camera = workspace.CurrentCamera
+local replicatedShoot = tool:WaitForChild("ShootEvent")
+
+local scopeGui = player:WaitForChild("PlayerGui"):WaitForChild("ScopeGui")
+local scopeImage = scopeGui:WaitForChild("ImageLabel")
+
+local zoomed = false
+local zoomFOV = 20
+local normalFOV = 70
+
+tool.Equipped:Connect(function()
+	mouse.Button2Down:Connect(function()
+		zoomed = true
+		camera.FieldOfView = zoomFOV
+		scopeImage.ImageTransparency = 0 -- Show scope overlay
+	end)
+	mouse.Button2Up:Connect(function()
+		zoomed = false
+		camera.FieldOfView = normalFOV
+		scopeImage.ImageTransparency = 1 -- Hide scope overlay
+	end)
+end)
+
+tool.Unequipped:Connect(function()
+	camera.FieldOfView = normalFOV
+	scopeImage.ImageTransparency = 1
+end)
