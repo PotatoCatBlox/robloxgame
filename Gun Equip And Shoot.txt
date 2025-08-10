@@ -12,6 +12,8 @@ local zoomFOV = 20
 local normalFOV = 70
 
 tool.Equipped:Connect(function()
+	player.CameraMode = Enum.CameraMode.LockFirstPerson
+	player.CameraMaxZoomDistance = 0.5
 	mouse.Button2Down:Connect(function()
 		zoomed = true
 		camera.FieldOfView = zoomFOV
@@ -25,6 +27,8 @@ tool.Equipped:Connect(function()
 end)
 
 tool.Unequipped:Connect(function()
+	player.CameraMode = Enum.CameraMode.Classic
+	player.CameraMaxZoomDistance = 128
 	camera.FieldOfView = normalFOV
 	scopeImage.ImageTransparency = 1
 end)
